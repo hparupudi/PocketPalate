@@ -1,0 +1,537 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
+
+:root{
+  --primCol: #CA6566;
+  --secCol: #5a0002;
+  --secColHov: #ff7a00;
+  --bgCol: #F9F6EE;
+}
+
+body {
+  font-family:"Poppins";
+  text-align: center;
+  background-color: var(--bgCol);
+}
+header {
+  display: flex;
+  justify-content:flex-end;
+  align-items: center;
+  background-color: #F9F6EE;
+  padding: 10px 20px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.header-end {
+  justify-content:flex-end;
+}
+header img {
+  height: 60px;
+}
+
+
+
+header nav a {
+  transition: color 0.2s ease, background-color 0.2s ease;
+  text-decoration: none;
+  color: #d7cf07;
+  font-weight: bold;
+  margin-left: 20px;
+}
+header nav a:hover {
+  color: var(--secCol);
+}
+.main-content {
+  padding: 50px 20px;
+}
+.main-content h1 {
+  font-size: 5em;
+  color: #663399; /* Purple color /
+}
+.main-content h2 {
+  font-size: 2.5em;
+  color: #663399; / Purple color */
+}
+.main-content p {
+  font-size: 1.2em;
+  color: #555;
+}
+.get-started-button {
+  background-color: #ff6b08;
+  color: #fff;
+  padding: 10px 20px;
+  border: 3px solid;
+  border-color: goldenrod;
+  border-radius: 30px;
+  font-size: 1.2em;
+  cursor:pointer;
+  font-family: "Poppins";
+  font-weight: bold;
+}
+.get-started-button:hover {
+  background-color: #e14000;
+  font-size: 1.3em;
+}
+
+.edit-button {
+  background-color: rgb(10, 116, 216);
+  color: #fff;
+  padding: 5px 10px;
+  border: 3px solid;
+  border-color: goldenrod;
+  border-radius: 30px;
+  margin-left: 10px;
+  position: relative;
+  top: 15px;
+}
+
+.edit {
+  height: 50px;
+  width: 50px;
+}
+
+
+.h1-text {
+  font-size: 6em;
+  font-family: "Poppins";
+  /*animation: colorChange 10s infinite;*/
+  background: linear-gradient(to right, #f32170, 
+                    #fb8e45, #eedd44); 
+  -webkit-text-fill-color: transparent; 
+  -webkit-background-clip: text; 
+}
+.nav-button {
+  border: none;
+  background: none;
+}
+
+.login-button {
+  background-color: #ff6b08;
+  color: #fff;
+  padding: 10px 20px;
+  border: 3px solid;
+  border-color: goldenrod;
+  border-radius: 30px;
+  font-size: 1em;
+  cursor:pointer;
+  font-family: "Poppins";
+  font-weight: bold;
+  margin-left: 20px;
+}
+
+.login-button:hover {
+  background-color: #e14000;
+  font-size: 1.1em;
+}
+
+.ingredient {
+  font-weight:lighter;
+}
+
+
+.email-input {
+  width: 30%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  resize: vertical;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh; 
+}
+
+.LoginPage1 {
+  background: rgba(8, 8, 8, 0.5) url('../public/loginBg.jpg');
+  background-blend-mode: multiply; /* or try 'multiply', 'overlay', etc. */
+  background-size: cover; 
+  background-position: center; 
+  background-repeat: no-repeat; 
+  height: 100vh; 
+  display: flex;
+  align-items: center;
+  justify-content: center; 
+}
+
+
+
+@keyframes colorChange {
+  0% { color: var(--secCol); } 
+  25% { color: #00ff00; } 
+  50% { color: #0000ff; }
+  75% { color: #ff00ff; } 
+  100% { color: var(--secCol); }
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-20%);
+  }
+}
+
+.scroll-container {
+  display: flex;
+  animation: scroll 5s linear infinite;
+  width: 100%
+}
+
+.scroll-container img {
+  height: 400px; /* Adjust the height to make images longer */
+  width: 300px;   /* Automatically adjust width to maintain aspect ratio */
+  object-fit: cover; /* Ensure the image covers the container */
+  margin-right: 10px; /* Add spacing between images */
+  border-radius: 20px;
+}
+
+.food-images img {
+  flex: none;
+}
+
+.changing-text {
+  font-size: 2em;
+  font-family: "Poppins"
+}
+
+input[type="radio"] {
+  display: none;
+}
+
+.listItem {
+  margin-left: -15px;
+  margin-bottom: 15px;
+  list-style-type:none;
+  font-weight:lighter;
+}
+
+.orderedList {
+  margin-bottom: 15px;
+}
+
+.saveButton {
+  margin-bottom: 50px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.input-box {
+  width: 60%; 
+  margin: 10px auto; 
+  padding: 20px; 
+  height: 20px;
+  font-family: "Poppins"; 
+  border-radius: 30px;
+  border: 5px solid transparent;
+  background-image: linear-gradient(white, white),
+  linear-gradient(to right, #f32170, #fb8e45, #eedd44); 
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+}
+
+.recipe-display {
+  display: flex;
+  align-items: center;
+  margin-bottom: -10px;
+}
+
+/* CSS Styles */
+.container {
+  display: flex;
+  align-items: flex-start; 
+  overflow-y: auto; 
+  height: 100vh;
+}
+
+.recipe-details {
+  background-color: #f2f3f2;
+  padding: 10px; /* Reduce padding */
+  border-radius: 40px;
+  width: 30%; /* Reduce width */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: left;
+  margin-left: 20px; /* Adjust margin as needed */
+  flex-grow: 1; /* Ensure it takes available space */
+  font-family:"Poppins";
+  font-size: 16px; /* Set the font size */
+  font-weight: 300; /* Set the font weight */
+  line-height: 1.5; /* Set the line height */
+  color: #333; /* Set the text color */
+}
+
+.circle {
+  height: 600px;
+  width: 600px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  margin-top: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-left: 50px; /* Adjust margin as needed */
+  position: sticky;
+  top: 20px; /* Adjust the top value as needed */
+}
+
+.inner-circle {
+  height: 90%; /* Smaller than the outer circle */
+  width: 90%;  /* Smaller than the outer circle */
+  background-color: #f2f3f2; /* Inner circle color */
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.text-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.circle p {
+  margin: 0; /* Reset any default margins */
+  text-align: center; /* Center text within the <p> element */
+  color: gray;
+}
+
+.big-text {
+  font-family: "Poppins";
+  font-size: 50px;
+}
+
+/*  */
+.login-container {
+  width: 100%;
+  max-width: 400px;
+  margin: 100px auto;
+  padding: 20px;
+  background-color: #f3f5f3;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 1);
+  border-radius: 15px;
+}
+
+.login-form h2 {
+  margin-bottom: 20px;
+  color: #333;
+  text-align: center;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  color: #555;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.login-button-1 {
+  width: 100%;
+  padding: 10px;
+  background-color: var(--secCol);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.login-button-1:hover {
+  background-color: var(--secColHov);
+}
+
+.login-container form {
+  display: flex;
+  flex-direction: column;
+}
+
+.signup-container {
+  width: 100%;
+  max-width: 400px;
+  margin: 100px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.signup-form h2 {
+  margin-bottom: 20px;
+  color: #333;
+  text-align: center;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  color: #555;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.error {
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+.signup-button {
+  width: 100%;
+  padding: 10px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.signup-button:hover {
+  background-color: #45a049;
+}
+
+.heart-checkbox-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  left: 40%;
+}
+
+.heart-checkbox {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.heart-checkbox input {
+  display: none; /* Hide the native checkbox */
+}
+
+/* Heart shape */
+.heart {
+  width: 20px;
+  height: 20px;
+  position: relative;
+  transform: rotate(-45deg); 
+  background-color: #ccc;
+  cursor: pointer;
+}
+
+.heart::before,
+.heart::after {
+  content: '';
+  width: 20px;
+  height: 20px;
+  background-color: #ccc;
+  border-radius: 50%;
+  position: absolute;
+}
+
+.heart::before {
+  top: -12px; /* Move the circle up */
+  left: 0;
+}
+
+.heart::after {
+  left: 12px; /* Move the circle to the right */
+  top: 0;
+}
+
+.heart.checked {
+  background-color: red; /* Color of the checked heart */
+}
+
+.heart.checked::before,
+.heart.checked::after {
+  background-color: red; /* Color of the checked heart */
+}
+
+.label {
+  font-size: 24px;
+  color: #333;
+  margin-left: 8px; /* Spacing between heart and label */
+}
+
+.logo {
+  width: 70px;
+  height: 70px;
+  margin-right: 1100px;
+}
+
+@keyframes glow {
+  100% {
+    text-shadow: 0 0 5px #f00, 0 0 10px #f00, 0 0 15px #f00, 0 0 20px #f00;
+  }
+  50% {
+    text-shadow: 0 0 10px #f00, 0 0 20px #f00, 0 0 30px #f00, 0 0 40px #f00;
+  }
+  0% {
+    text-shadow: 0 0 5px #f00, 0 0 10px #f00, 0 0 15px #f00, 0 0 20px #f00;
+  }
+}
+.glow {
+  animation: glow 1s ease-in-out;
+}
+
+.landing-page {
+  background: #F9F6EE;
+}
+
+.button-display {
+  display: inline-flex;
+  align-items: center;
+}
+
+.option-button {
+  background-color: grey;
+  color: #fff;
+  padding: 10px 20px;
+  border: 3px solid;
+  border-radius: 30px;
+  font-size: 1em;
+  cursor:pointer;
+  font-family: "Poppins";
+  font-weight: bold;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.health-input {
+  width: 60%;  
+  height: 50px;
+  font-family: "Poppins"; 
+  border-radius: 10px;
+  border: 2px groove;
+  background-color: rgb(241, 241, 241);
+  vertical-align: top;
+  margin-bottom: 20px;
+}
+
