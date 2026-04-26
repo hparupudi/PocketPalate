@@ -1,0 +1,13 @@
+Flask
+gunicorn
+python-dotenv
+passlib
+pymongo
+requests
+langchain
+langchain-openai
+langchain-pinecone
+langchain-community
+langchain-core
+flask_cors
+flask_session
