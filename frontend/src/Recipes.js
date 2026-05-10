@@ -16,11 +16,8 @@ function Recipes() {
   const { state } = location;
   const navigate = useNavigate();
 
-  const [post, setPost] = useState(null)
   const [showSpinner, setShowSpinner] = useState(false);
-
   let [prompt, setPrompt] = useState("");
-  const [recipes, setRecipes] = useState("");
 
   const[recipeName, setRecipeName] = useState("")
   const[ingredients, setIngredients] = useState([])
@@ -97,120 +94,86 @@ function Recipes() {
 
      let cookTime = "Total cooking time should take ";
      let diet = "The recipe should only contain ingredients that are "
-     let counters = [0, 0];
+     let updates = {'cookTime': 0, 'diet': 0}
      const health_start = "The recipe should only use ingredients that a person with "
      const health_end = " can eat."
 
      for (let i = 0; i < 4; i++) {
         if (color.menu1[i] == 'blue') {
-          cookTime += prepOptions[1] + " ";
-          counters[0] = counters[0] + 1;
+            if (cookTime.length > "Total cooking time should take ".length) {
+                cookTime += ", "
+            }
+            cookTime += prepOptions[i]
+            updates['cookTime']++
         }
 
         if (color.menu2[i] == 'blue') {
-          diet += dietOptions[i] + " ";
-          counters[1] = counters[1] + 1;
+            if (diet.length > "The recipe should only contain ingredients that are ".length) {
+                diet += ", "
+            }
+          diet += dietOptions[i]
+          updates['diet']++
         }
      }
 
      try {
+    
+      prompt = "Generate a recipe for " + prompt + ". "
+      const formatPrompt = (prompt, query, numUpdates, seperator) => {
+        if (numUpdates > 1) {
+            const lastCommaIdx = query.lastIndexOf(',')
+            if (numUpdates > 2) {
+                query = query.substring(0, lastCommaIdx + 2) + seperator + query.substring(lastCommaIdx + 1, query.length) 
+            } else {
+                query = query.substring(0, lastCommaIdx) + " " + seperator + query.substring(lastCommaIdx + 1, query.length)
+            }
+        }
+        prompt = prompt + query + ". ";
+        return prompt; 
+       }
 
-      if (counters[0] > 0) {
-        prompt += cookTime;
+      if (updates['cookTime'] > 0) { prompt = formatPrompt(prompt, cookTime, updates['cookTime'], 'or') }
+      if (updates['diet'] > 0) { prompt = formatPrompt(prompt, diet, updates['diet'], 'and') }
+      
+      if (health.length > 0) {
+        prompt += health_start + health + health_end;
       }
-
-      if (counters[1] > 0) {
-        prompt += diet;
-      }
-
-      prompt = prompt + health_start + health + health_end;
       console.log(prompt)
       const response = await axios.post('/api/recipes', { prompt })
-      console.log(response)
       
-      setRecipes(response.data)
-      setPost(response.data)
       setShowSpinner(false)
 
-      const recipe_lines = String(response.data).toLowerCase();
 
-      const recipeStart = recipe_lines.indexOf('name: ') + 5;
-      const recipeEnd = recipe_lines.indexOf('ingredients:')
-      const recipeName = recipe_lines.slice(recipeStart, recipeEnd)
-      let newRecipeName = "";
+      let curr_recipe = response.data.replace(/\n/g, "")
+      console.log(curr_recipe)
 
-      for (let i = 1; i < recipeName.length; i++) {
-        if (recipeName.charAt(i-1) === (" ")) {
-          newRecipeName = newRecipeName + 
-          recipeName.charAt(i-1) + recipeName.charAt(i).toUpperCase();
-        }
-        else {
-          newRecipeName += recipeName.charAt(i);
-        }
-      }
-    
-      setRecipeName(newRecipeName)
-      
-      const ingredientsStart = recipe_lines.indexOf('ingredients:') + 12;
-      const ingredientsEnd = recipe_lines.indexOf('steps:')
-      const ingredients = recipe_lines.slice(ingredientsStart, ingredientsEnd)
-      const ingredientsArray = ingredients.split('-').filter(item => item.trim())
-      .map(item => item.trim())
-      .map(item => item.charAt(0).toUpperCase() + item.slice(1))
+      let curr_name = curr_recipe.substring(curr_recipe.indexOf('Recipe Name') + 13, curr_recipe.indexOf('Ingredients'))
+      let curr_ingredients = curr_recipe.substring(curr_recipe.indexOf('Ingredients') + 12, curr_recipe.indexOf('Steps'))
+      let curr_steps = curr_recipe.substring(curr_recipe.indexOf('Steps') + 6, curr_recipe.indexOf('Nutrition'))
+      let curr_calories = curr_recipe.substring(curr_recipe.indexOf('Calories') + 'Calories'.length + 2, curr_recipe.indexOf('Carbohydrates'))
+      let curr_carbs = curr_recipe.substring(curr_recipe.indexOf('Carbohydrates') + 'Carbohydrates'.length + 2, curr_recipe.indexOf('Protein'))
+      let curr_protein = curr_recipe.substring(curr_recipe.indexOf('Protein') + 'Protein'.length + 2, curr_recipe.indexOf('Fats'))
+      let curr_fats = curr_recipe.substring(curr_recipe.indexOf('Fats') + 'Fats'.length + 2, curr_recipe.length)
 
-      setIngredients(ingredientsArray)
+      curr_ingredients = curr_ingredients.split("- ").filter(ingredient => ingredient.length > 0)
+      curr_steps = curr_steps.split(/\d+\.\s/).filter(step => step.length > 0)
+      curr_calories = curr_calories.replace(/\D/g, "")
+      curr_carbs = curr_carbs.replace("g", "")
+      curr_protein = curr_protein.replace("g", "")
+      curr_fats = curr_fats.replace("g", "")
 
-      const stepsStart = recipe_lines.indexOf('steps:') + 6;
-      const stepsEnd = recipe_lines.indexOf('nutrition');
-      const steps = recipe_lines.slice(stepsStart, stepsEnd);
-      const stepsArray = steps
-        .split(/\d+\.\s*/)
-        .filter(step => step.trim())
-        .map(step => step.trim())
-        .map(item => item.charAt(0).toUpperCase() + item.slice(1))
-      setSteps(stepsArray);
-
-
-      console.log(recipe_lines)
-      let nutritionStart = ""
-      if (recipe_lines.includes("nutrition info")) {
-        nutritionStart = recipe_lines.indexOf('nutrition info:') + 15;
-      }
-      else {
-        nutritionStart = recipe_lines.indexOf('nutrition:') + 10;
-      }
-      const nutrition = recipe_lines.slice(nutritionStart, recipe_lines.length)
-
-      const calStart = nutrition.indexOf('calories') + 9;
-      const calEnd = nutrition.indexOf('carbohydrates')
-      const calories = nutrition.slice(calStart, calEnd);
-      setCalories(calories);
-
-      const carbStart = nutrition.indexOf('carbohydrates') + 14;
-      const carbEnd = nutrition.indexOf('g\nprotein')
-      const carbs = nutrition.slice(carbStart, carbEnd);
-      setCarbs(carbs);
-
-      const proteinStart = nutrition.indexOf('protein') + 8;
-      const proteinEnd = nutrition.indexOf('g\nfats')
-      const protein = nutrition.slice(proteinStart, proteinEnd);
-      setProtein(protein);
-
-      const fatStart = nutrition.indexOf('fats') + 5;
-      const fat = nutrition.slice(fatStart);
-      setFat(fat);
-
-      setDisplayRating(true)
-      console.log(nutrition)
-      console.log(calories)
-      console.log(carbs)
-      console.log(protein)
-      console.log(fat)
-
-      values.red = carbs / calories * 360;
-      values.blue = protein / calories * 360;
+      values.red = curr_carbs / curr_calories * 360;
+      values.blue = curr_protein / curr_calories * 360;
       values.green = 360 - values.red - values.blue;
 
+      setRecipeName(curr_name)
+      setIngredients(curr_ingredients)
+      setSteps(curr_steps)
+      setCalories(curr_calories);
+      setCarbs(curr_carbs);
+      setProtein(curr_protein);
+      setFat(curr_fats);
+      setDisplayRating(true)
      }
 
      catch (error) {
@@ -298,7 +261,11 @@ function Recipes() {
               </input>
             </div>
             <div>
-              <button className="login-button"onClick={() => close()}>
+              <button className="login-button" onClick={() => { 
+                close(); 
+                setShowSpinner(true);
+                handleSubmit();
+                }}>
               Done
               </button>
             </div>
@@ -308,7 +275,7 @@ function Recipes() {
       </Popup>
     <div>
       {showSpinner && 
-      <div>
+      <div className="spinner-con">
       <p>Creating delicious recipe...</p>
       <RotatingLines
         height={80}
@@ -361,7 +328,7 @@ function Recipes() {
             <h2>{calories} Calories</h2>
             <p style={{color:'red'}}>{carbs}g Carbs</p>
             <p style={{color:'blue'}}>{protein}g Protein</p>
-            <p style={{color:'green'}}>{fat} fat</p>
+            <p style={{color:'green'}}>{fat}g fat</p>
           </div>
         </div>
       </div>}
@@ -372,3 +339,5 @@ function Recipes() {
 
 
 export default Recipes;
+
+
